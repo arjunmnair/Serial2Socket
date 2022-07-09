@@ -1,0 +1,14 @@
+# Ignore environment directories.
+*swp
+*swap
+
+# Ignore unneccessary files
+__pycache__
+*.pyc
+
+# IDE files.
+.project
+.cproject
+.settings
+*.kdev4
+*.spyproject
