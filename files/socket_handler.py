@@ -113,6 +113,7 @@ class SocketHandler(threading.Thread):
 	def run(self):
 		with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 			s.setblocking(False)
+			s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 			s.bind((self.__host, self.__port))
 			print('Listening on \'%s : %d\'.' % (self.__host, self.__port))
 			s.listen()

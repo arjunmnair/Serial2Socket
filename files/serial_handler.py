@@ -46,13 +46,21 @@ class SerialHandler(threading.Thread):
 
 	def run(self):
 		while ( (self.__stop == False) and (self.__connection) ):
-			rcv = self.__connection.read(1000)
+			try:
+				rcv = self.__connection.read(1000)
+			except:
+				self.__data_management_instance.SIGNAL_EXIT()
+				break
 			if(len(rcv)):
 				self.__data_management_instance.PUT_SEND_TEXT(rcv)
 			
 			snd = self.__data_management_instance.GET_RECEIVED_TEXT()
 			if(snd != None):
-				self.__connection.write(snd)
+				try:
+					self.__connection.write(snd)
+				except:
+					self.__data_management_instance.SIGNAL_EXIT()
+					break
 			gc.collect()
 			
 			if(self.__data_management_instance.EXIT_STATE()):
